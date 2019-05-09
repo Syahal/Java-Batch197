@@ -2,7 +2,7 @@ package day03;
 
 import java.util.*;
 
-public class Logic03Soal03 {
+public class Logic03Soal0302 {
 
 	protected static Scanner input;
 
@@ -46,12 +46,6 @@ public class Logic03Soal03 {
 			array[i][0] = arr[index];
 			index++;
 		}
-		
-		//cetak deret atas baris kedua
-//		for (int i = 1; i < n; i++) {
-//			array[1][i] = arr[index];
-//			index++;
-//		}
 
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0; j < array.length; j++) {
@@ -59,6 +53,7 @@ public class Logic03Soal03 {
 			}
 			System.out.println();
 		}
+
 	}
 
 	// method baru untuk menampilkan deret angka
