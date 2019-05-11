@@ -6,6 +6,7 @@ public class Latihan0201 {
 
 		int n = 9;
 		int a = 1;
+		int b = 0;
 		
 		//pindah baris
 		for (int i = 0; i < n; i++) {

@@ -1,6 +1,6 @@
 package Latihan;
 
-public class BirthdayCakeCandles {
+public class HRBirthdayCakeCandles {
 
 	public static void main(String[] args) {
 		int case1 = birthdayCakeCandles(new int[] {3,2,1,3});

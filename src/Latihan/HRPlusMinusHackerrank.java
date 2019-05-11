@@ -1,6 +1,6 @@
-package day03;
+package Latihan;
 
-public class PlusMinusHackerrank {
+public class HRPlusMinusHackerrank {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

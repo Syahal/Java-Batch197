@@ -1,6 +1,6 @@
-package day02;
+package Latihan;
 
-public class DiagonalDifferenceHackerrank {
+public class HRDiagonalDifferenceHackerrank {
 
 	public static void main(String[] args) {
 		

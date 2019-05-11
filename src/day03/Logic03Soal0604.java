@@ -2,7 +2,7 @@ package day03;
 
 import java.util.*;
 
-public class Logic03Soal06 {
+public class Logic03Soal0604 {
 
 	protected static Scanner input;
 
@@ -49,8 +49,6 @@ public class Logic03Soal06 {
 			nilaiAwal = nilaiAwal + penambahan;
 			penambahan += 2;
 		}
-
 		return deretAngka;
 	}
-
 }

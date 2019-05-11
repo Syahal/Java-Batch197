@@ -1,9 +1,9 @@
-package day03;
+package Latihan;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompareTripletsHackerrank {
+public class HRCompareTripletsHackerrank {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

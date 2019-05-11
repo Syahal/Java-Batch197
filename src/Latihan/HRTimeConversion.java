@@ -1,6 +1,6 @@
 package Latihan;
 
-public class TimeConversion {
+public class HRTimeConversion {
 
 	public static void main(String[] args) {
 		System.out.println(timeConversion("07:05:45PM"));

@@ -14,10 +14,9 @@ public class Logic02Soal01 {
 		int n1 = input.nextInt();
 		System.out.println("Masukkan Nilai N2");
 		int n2 = input.nextInt();
-		
 		int[] deretAngka = new int[n1];
 		int nilaiAwal = 1;
-		int nilaiTengah = n1/2;
+		int hasilHitung;
 		
 		for (int i = 0; i < n1; i++) {
 			deretAngka[i] = nilaiAwal;
@@ -26,7 +25,8 @@ public class Logic02Soal01 {
 		}
 		
 		System.out.println("\n");
-		System.out.print("Perhitungan => " );
+		
+		System.out.print("Perhitungan => ");
 	}
 
 }

@@ -2,36 +2,36 @@ package day03;
 
 import java.util.*;
 
-public class Logic03Soal06 {
+public class Logic03Soal0405 {
 
 	protected static Scanner input;
 
 	public static void main(String[] args) {
 
 		input = new Scanner(System.in);
-		System.out.println("Masukkan N :");
+		System.out.println("Masukkan Nilai N : ");
 		int n = input.nextInt();
-		System.out.println("Masukkan M : ");
+		System.out.println("Masukkan Nilai M : ");
 		int m = input.nextInt();
 
 		int arr[] = geserArray(n, m);
-		int arr2[] = geserArray(n, m);
+		int arr2[] = new int[n];
 
 		for (int i = 0; i <= m; i++) {
 			for (int j = 0; j < n; j++) {
 				System.out.print(arr[j] + "\t");
 			}
 
-			for (int k = n - 1; k >= 0; k--) {
-				if (k == n - 1) {
-					arr[k] = arr2[0];
+			for (int k = 0; k < n; k++) {
+				if (k - 1 < 0) {
+					arr2[k] = arr[n - 1];
 				} else {
-					arr[k] = arr2[k + 1];
+					arr2[k] = arr[k - 1];
 				}
 			}
 
 			for (int l = 0; l < n; l++) {
-				arr2[l] = arr[l];
+				arr[l] = arr2[l];
 			}
 			System.out.println();
 		}
@@ -39,18 +39,17 @@ public class Logic03Soal06 {
 
 	static int[] geserArray(int n, int m) {
 
-		int deretAngka[] = new int[n];
-		int nilaiAwal = 2;
+		int hasilDeret[] = new int[n];
+		int nilaiAwal = 1;
 		int penambahan = 2;
 
-		for (int i = 0; i < n; i++) {
-
-			deretAngka[i] = nilaiAwal;
+		for (int i = 0; i <n; i++) {
+			hasilDeret[i] = nilaiAwal;
 			nilaiAwal = nilaiAwal + penambahan;
-			penambahan += 2;
+			penambahan = penambahan + 1;
 		}
 
-		return deretAngka;
+		return hasilDeret;
 	}
 
 }

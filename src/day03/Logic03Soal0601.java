@@ -2,7 +2,7 @@ package day03;
 
 import java.util.*;
 
-public class Logic03Soal06 {
+public class Logic03Soal0601 {
 
 	protected static Scanner input;
 
