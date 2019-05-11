@@ -22,23 +22,6 @@ public class Logic05Soal01 {
 		org01.id = 2;
 		org01.cetakData();
 		
-		Orang org03 = new Orang();
-		//input
-		org03.id = 300000;
-		org03.nama = "Arif";
-		org03.alamat = "Bekasi";
-		org03.jk = "Laki-laki";
-		org03.noTelp = "12345";
-		//output
-		org03.cetakData();
-		
-		int hasil = org03.perhitungan(3, 4, 5);
-		System.out.println(hasil);
-		
-		for (int i = 0; i < 100; i++) {
-			Orang org = new Orang();
-		}
-		
 	}
 
 }

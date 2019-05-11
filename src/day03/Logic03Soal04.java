@@ -17,12 +17,12 @@ public class Logic03Soal04 {
 		// deklarasi variable
 		int[] arr = geserArray(n, m);
 		int[] arr2 = new int[n];
-		// menampilkan deret baris pertama
+		//step 2.. menampilkan deret baris pertama
 		for (int i = 0; i <= m; i++) {
 			for (int j = 0; j < n; j++) {
 				System.out.print(arr[j] + "\t");
 			}
-
+		// step 3
 		for (int k = 0; k < n; k++) {
 				//mengambil data/angka paling belakang utk di pindahkan ke baris berikutnya di posisi paling depan
 				if (k - 1 < 0) {
@@ -35,6 +35,7 @@ public class Logic03Soal04 {
 					// System.out.print("else\t");
 				}
 			}
+			//step 4
 			//looping utk mengganti array 1 dengan yang baru, dengan mengambil data ke array 2
 			for (int l = 0; l < n; l++) {
 				arr[l] = arr2[l];
@@ -44,16 +45,17 @@ public class Logic03Soal04 {
 
 	}
 
-	// first step.. new method (menghitung pola deret angka)
+	// step 1.. new method (menghitung pola deret angka dengan ketentuan penambahan +1)
 	static int[] geserArray(int n, int m) {
 
 		int hasilDeret[] = new int[n];
 		int nilaiAwal = 1;
-		int tambah = 2;
+		int tambah = 2; //angka penambah untuk deret selanjutnya
+		//looping deret angka
 		for (int i = 0; i < n; i++) {
 			hasilDeret[i] = nilaiAwal;
 			nilaiAwal = nilaiAwal + tambah;
-			tambah = tambah + 1;
+			tambah = tambah + 1; // dari angka 2 itu, ditambah lagi +1 supaya perulangannya bertingkat
 		}
 		return hasilDeret;
 	}
