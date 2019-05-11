@@ -11,7 +11,7 @@ public class Latihan0201 {
 		for (int i = 0; i < n; i++) {
 			//pindah kolom
 			for (int j = 0; j < n; j++) {
-				if(i==j) {
+				if(i==j || i+j == n-1) {
 					System.out.print(a+"\t");
 				} else {
 					System.out.print("\t");

@@ -17,12 +17,16 @@ public class Logic02Soal01 {
 		
 		int[] deretAngka = new int[n1];
 		int nilaiAwal = 1;
+		int nilaiTengah = n1/2;
 		
 		for (int i = 0; i < n1; i++) {
 			deretAngka[i] = nilaiAwal;
 			System.out.print(deretAngka[i] + "\t");
 			nilaiAwal = nilaiAwal * n2;
 		}
+		
+		System.out.println("\n");
+		System.out.print("Perhitungan => " );
 	}
 
 }
