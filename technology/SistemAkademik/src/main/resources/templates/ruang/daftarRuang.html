@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>SA | Ruang</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 5px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+h1 {
+	text-align: center;
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<h1>Sistem Akademik</h1>
+	<table>
+		<h2>Daftar Ruang</h2>
+		<tr>
+			<th>Kode Ruang</th>
+			<th>Nama Ruang</th>
+			<th>Kapasitas</th>
+			<th colspan="2" text-align="center">Action</th>
+		</tr>
+		<tr th:each="item:${ruangList}">
+			<td><span th:text="${item.kdRuang}"></span></td>
+			<td><span th:text="${item.nmRuang}"></span></td>
+			<td><span th:text="${item.kapasitas}"></span></td>
+			<td>
+				<button>
+					<a th:href="@{editRuang/{id}(id=${item.id})}">Edit Data</a>
+				</button>
+				<button>
+					<a th:href="@{hapusRuang/{id}(id=${item.id})}">Hapus Data</a>
+				</button>
+			</td>
+		</tr>
+	</table>
+	<p></p>
+	<button onclick="window.location.href='/ruang/homeRuang'">Tambah
+		Data</button>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>SA | Kelas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+table {
+	border: 1px solid black;
+	padding: 20px
+}
+
+td, th {
+	text-align: left;
+}
+
+h1 {
+	text-align: center;
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<h1>Sistem Akademik</h1>
+	<form th:action="@{/matakuliah/simpanMatakuliah}" method="post">
+		<table>
+			<h2>Form Kelas</h2>
+			<tr>
+				<td>Kode Kelas</td>
+				<td>:</td>
+				<td><input type="text" size="10" name="kdKelas"></td>
+			</tr>
+			<tr>
+				<td>Nama Kelas</td>
+				<td>:</td>
+				<td><input type="text" size="25" name="nmKelas"></td>
+			</tr>
+				<td>Kode Dosen</td>
+				<td>:</td>
+				<td><select name="dosenId">
+						<option th:each="item:${dosenList}" th:value="${item.id}"
+							th:text="${item.kdDosen}">Pilih Dosen</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>Kode Matakuliah</td>
+				<td>:</td>
+				<td><select name="matakuliahId">
+						<option th:each="item:${matakuliahList}" th:value="${item.id}"
+							th:text="${item.kdMk}">Pilih Jurusan</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>Kode Ruang</td>
+				<td>:</td>
+				<td><select name="ruangId">
+						<option th:each="item:${ruangList}" th:value="${item.id}"
+							th:text="${item.kdRuang}">Pilih Ruang</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Submit"> <input
+					type="reset" value="Reset"></td>
+			</tr>
+		</table>
+		<p></p>
+	</form>
+	<button onclick="window.location.href='/matakuliah/daftarMatakuliah'">Daftar
+		Matakuliah</button>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>SA | Bobot Nilai</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 5px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+h1 {
+	text-align: center;
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<h1>Sistem Akademik</h1>
+	<table>
+		<h2>Daftar Bobot Nilai</h2>
+		<tr>
+			<th>Nilai</th>
+			<th>Bobot Nilai</th>
+			<th colspan="2" text-align="center">Action</th>
+		</tr>
+		<tr th:each="item:${bobotnilaiList}">
+			<td><span th:text="${item.nilai}"></span></td>
+			<td><span th:text="${item.bobotNilai}"></span></td>
+			<td>
+				<button>
+					<a th:href="@{editBobot/{id}(id=${item.id})}">Edit Data</a>
+				</button>
+				<button>
+					<a th:href="@{hapusBobot/{id}(id=${item.id})}">Hapus Data</a>
+				</button>
+			</td>
+		</tr>
+	</table>
+	<p></p>
+	<button onclick="window.location.href='/bobotnilai/homeBobot'">Tambah
+		Data</button>
+</body>
+</html>

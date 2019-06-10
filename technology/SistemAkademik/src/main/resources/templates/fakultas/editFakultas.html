@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>SA | Fakultas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+table {
+	border: 1px solid black;
+	padding: 20px
+}
+
+td, th {
+	text-align: left;
+}
+
+h1 {
+	text-align: center;
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<h1>Sistem Akademik</h1>
+	<form th:action="@{/fakultas/simpanFakultas}" method="post">
+		<table>
+			<h2>Edit Fakultas</h2>
+			<input type="hidden" name="id" th:value="${fakultasEdit.id}">
+			<tr>
+				<td>Kode Fakultas</td>
+				<td>:</td>
+				<td><input type="text" size="25" name="kdFakultas"
+					th:value="${fakultasEdit.kdFakultas}"></td>
+			</tr>
+			<tr>
+				<td>Nama Fakultas</td>
+				<td>:</td>
+				<td><input type="text" size="25" name="nmFakultas"
+					th:value="${fakultasEdit.nmFakultas}"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Submit"> <input
+					type="reset" value="Reset"> <input type="submit"
+					value="Cancel"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>SA | Dosen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 5px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+h1 {
+	text-align: center;
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<h1>Sistem Akademik</h1>
+	<table>
+		<h2>Daftar Dosen</h2>
+		<tr>
+			<th>Kode Dosen</th>
+			<th>Nama Dosen</th>
+			<th>Jenis Kelamin</th>
+			<th>Alamat</th>
+			<th colspan="2" text-align="center">Action</th>
+		</tr>
+		<tr th:each="item:${dosenList}">
+			<td><span th:text="${item.kdDosen}"></span></td>
+			<td><span th:text="${item.nmDosen}"></span></td>
+			<td><span th:text="${item.jk}"></span></td>
+			<td><span th:text="${item.alamat}"></span></td>
+			<td>
+				<button>
+					<a th:href="@{editDosen/{id}(id=${item.id})}">Edit Data</a>
+				</button>
+				<button>
+					<a th:href="@{hapusDosen/{id}(id=${item.id})}">Hapus Data</a>
+				</button>
+			</td>
+		</tr>
+	</table>
+	<p></p>
+	<button onclick="window.location.href='/dosen/homeDosen'">Tambah
+		Data</button>
+</body>
+</html>

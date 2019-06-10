@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>SA | Fakultas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+table {
+	border: 1px solid black;
+	padding: 20px
+}
+
+td, th {
+	text-align: left;
+}
+
+h1 {
+	text-align: center;
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<h1>Sistem Akademik</h1>
+	<form th:action="@{/bobotnilai/simpanBobot}" method="post">
+		<table>
+			<h2>Form Bobot Nilai</h2>
+			<tr>
+				<td>Nilai</td>
+				<td>:</td>
+				<td><input type="text" size="10" name="nilai"></td>
+			</tr>
+			<tr>
+				<td>Bobot Nilai</td>
+				<td>:</td>
+				<td><input type="text" size="10" name="bobotNilai"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Submit"> <input
+					type="reset" value="Reset"></td>
+			</tr>
+		</table>
+		<p></p>
+		<tr>
+		</tr>
+	</form>
+	<button onclick="window.location.href='/fakultas/daftarFakultas'">Daftar
+		Fakultas</button>
+</body>
+</html>

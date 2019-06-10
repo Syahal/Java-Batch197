@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>SA | Jurusan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+table {
+	border: 1px solid black;
+	padding: 20px
+}
+
+td, th {
+	text-align: left;
+}
+
+h1 {
+	text-align: center;
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<h1>Sistem Akademik</h1>
+	<form th:action="@{/jurusan/simpanJurusan}" method="post">
+		<table>
+			<h2>Edit Jurusan</h2>
+			<input type="hidden" name="id" th:value="${jurusanEdit.id}">
+			<tr>
+				<td>Kode Jurusan</td>
+				<td>:</td>
+				<td><input type="text" size="25" name="kdJurusan"
+					th:value="${jurusanEdit.kdJurusan}"></td>
+			</tr>
+			<tr>
+				<td>Nama Jurusan</td>
+				<td>:</td>
+				<td><input type="text" size="25" name="nmJurusan"
+					th:value="${jurusanEdit.nmJurusan}"></td>
+			</tr>
+			<tr>
+				<td>Fakultas</td>
+				<td>:</td>
+				<td><select name="fakultasId">
+						<option th:each="item:${listFakultas}" th:value="${item.id}"
+							th:text="${item.kdFakultas}">Pilih Fakultas</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Submit"> <input
+					type="reset" value="Reset"> <input type="submit"
+					value="Cancel"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

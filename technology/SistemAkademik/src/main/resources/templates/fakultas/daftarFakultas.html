@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>SA | Fakultas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 5px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+h1 {
+	text-align: center;
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<h1>Sistem Akademik</h1>
+	<table>
+		<h2>Daftar Fakultas</h2>
+		<tr>
+			<th>Kode Fakultas</th>
+			<th>Nama Fakultas</th>
+			<th colspan="2" text-align="center">Action</th>
+		</tr>
+		<tr th:each="item:${fakultasList}">
+			<td><span th:text="${item.kdFakultas}"></span></td>
+			<td><span th:text="${item.nmFakultas}"></span></td>
+			<td>
+				<button>
+					<a th:href="@{editFakultas/{id}(id=${item.id})}">Edit Data</a>
+				</button>
+				<button>
+					<a th:href="@{hapusFakultas/{id}(id=${item.id})}">Hapus Data</a>
+				</button>
+			</td>
+		</tr>
+	</table>
+	<p></p>
+	<button onclick="window.location.href='/fakultas/homeFakultas'">Tambah
+		Data</button>
+</body>
+</html>
