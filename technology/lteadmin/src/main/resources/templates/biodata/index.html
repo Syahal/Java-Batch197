@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header_app">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+	<style>
+.example-modal .modal {
+	position: relative;
+	top: auto;
+	bottom: auto;
+	right: auto;
+	left: auto;
+	display: block;
+	z-index: 1;
+}
+
+.example-modal .modal {
+	background: transparent !important;
+}
+</style>
+	<div class=wrapper>
+		<!-- header -->
+		<header th:replace="fragments/header :: header"></header>
+		<!-- sidebar -->
+		<aside th:replace="fragments/sidebar :: sidebar"></aside>
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header -->
+			<section class="content-header">
+				<h1>
+					Kota<small>Index</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+				</ol>
+			</section>
+			<!-- Main Content -->
+			<section class="content">
+				<div class="row">
+					<div class="col-md-12">
+						<!-- content mulai -->
+						<div class="box box-info box-solid">
+							<div class="box-header with-border">
+								<h3 class="box-title">List Biodata</h3>
+								<div class="box-tools">
+									<div class="input-group input-group-sm" style="width: 250px;">
+										<input type="text" id="txt-search"
+											class="form-control pull right" placeholder="search" />
+										<div class="input-group-btn">
+											<button type="button" class="btn btn-warning btn-sm"
+												id="btn-search">
+												<i class="fa fa-search"></i>
+											</button>
+											<button type="button" class="btn btn-primary btn-sm"
+												id="btn-add">
+												<i class="fa fa-plus"></i> Add
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="box-body">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>NIK</th>
+											<th>Nama</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody id="list-data">
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- content selesai -->
+					</div>
+				</div>
+			</section>
+		</div>
+		<!-- footer -->
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+	
+	<!-- modal mulai -->
+	<div class="modal fade" id="modal-input">
+		<div class="modal-dialog"></div>
+	</div>
+	<!-- modal selesai -->
+	
+	<!-- script javascript -->
+	<div th:replace="fragments/footer :: scripts"></div>
+	
+	<!-- script untuk CRUD page Biodata -->
+	<script>
+		//#1. Fungsi Javascript
+		function loadData(){
+			//function jQuery
+			$.ajax({
+				url:'/biodata/list',
+				type:'get',
+				dataType:'html',
+				success: function(result){
+					$("#list-data").html(result);
+				}
+			});
+		}
+		
+		//#2. Fungsi jQuery, pertama kali halamannya di load
+		$(function(){
+			loadData();
+		});
+		
+		//#3. Event btn-add => cari button dengan id btn-add
+		//event terjadi bila button tsb di click, utk menampilkan form baru
+		$("#btn-add").click(function(){
+			//request halaman dengan Ajax
+			$.ajax({
+				url:'/biodata/add', //lihat di biodataController, cari getMapping(value="/add")
+				type:'get',
+				dataType:'html',
+				success: function(result){
+					$("#modal-input").find(".modal-dialog").html(result);
+					//menampilkan modal dengan id modal-input
+					$("#modal-input").modal('show');
+				}
+			});
+		});
+		
+		//#4. event terjai ketika modal di input, kemudian cari element dengan id form-biodata
+		//eventnya itu terjadi ketika form di submit
+		$("#modal-input").on("submit", "#form-biodata", function(){
+			//inisialisasi variable urlForm, diambil dari attribute action form
+			//sehingga utk CREATE, UPDATE, DELETE, menggunakan data ini dan tdak perlu buat event submit berkali-kali
+			var urlForm= $(this).attr('action');
+			//submit data dengan Ajax
+			$.ajax({
+				url: urlForm, //url diisi dengan variable urlForm
+				type:'post',
+				data:dataForm, //data diisi dengan variable dataForm
+				dataType:'html',
+				done:function(){
+					$("#modal-input").find(".modal-dialog").html("");
+				},
+				success:function(result){
+					//masukkan dulu resultnya ke modal
+					$("#modal-input").find(".modal-dialog").html(result)
+					//cek jumlah element yang memiliki has-error
+					var check=$("#modal-input").find(".has-error").length;
+					//jika tidak ada error
+					if(check==0){
+						//sembunyikan modal dengan id modal-input
+						$("#modal-input").modal('hide');
+						//tampilkan data dengan memanggil method loadData
+						loadData();
+					}
+				},
+			});
+			//utk mencegah supaya form tidak submit secara otomatis
+			return false;
+		});
+		
+		//#5. menampilkan detail data
+		$("#list-data").on("click",".btn-detail", function(){
+			var id= $(this).val();
+			//request halaman dengan ajax
+			$.ajax({
+				url:'/biodata/detail' + id, //lihat di biodataController, cari GetMapping(value="/detail/{id}")
+			type:'get',
+			dataType:'html',
+			success:function(result){
+				$("#modal-input").find(".modal-dialog").html(result);
+				//menampilkan modal dengan id modal-input
+				$("#modal-input").modal('show');
+			}
+			});
+		});
+		
+	</script>
+	
+</body>
