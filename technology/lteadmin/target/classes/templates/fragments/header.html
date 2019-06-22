@@ -1,0 +1,114 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header_app">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Test App</title>
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet" th:href="@{~/bootstrap/css/bootstrap.min.css}" />
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	th:href="@{~/font-awesome/css/font-awesome.min.css}" />
+<!-- Ionicons -->
+<link rel="stylesheet" th:href="@{~/Ionicons/css/ionicons.min.css}" />
+<!-- Date Picker -->
+<link rel="stylesheet"
+	th:href="@{~/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css}">
+
+<link type="text/css"
+	th:href="@{~/bootstrap/css/bootstrap-responsive.min.css}"
+	rel="stylesheet">
+<link type="text/css" th:href="@{~/css/theme.css}" rel="stylesheet">
+</head>
+<body>
+	<header class="main-header" th:fragment="header">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+
+				</div>
+
+
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<!-- First dropdown code -->
+						<li class="dropdown"><a
+							href="https://www.jquery-az.com/bootstrap-tips-tutorials/"
+							class="dropdown-toggle" data-toggle="dropdown" role="button"
+							aria-haspopup="true" aria-expanded="false">Menu 1 <span
+								class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a
+									href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a></li>
+								<li><a
+									href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a
+									href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a></li>
+							</ul></li>
+						<li class="dropdown"><a
+							href="https://www.jquery-az.com/bootstrap-tips-tutorials/"
+							class="dropdown-toggle" data-toggle="dropdown" role="button"
+							aria-haspopup="true" aria-expanded="false">Menu 2 <span
+								class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a
+									href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a></li>
+								<li><a
+									href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a
+									href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a></li>
+							</ul></li>
+						<li class="dropdown"><a
+							href="https://www.jquery-az.com/bootstrap-tips-tutorials/"
+							class="dropdown-toggle" data-toggle="dropdown" role="button"
+							aria-haspopup="true" aria-expanded="false">Menu 3 <span
+								class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a
+									href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a></li>
+								<li><a
+									href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a
+									href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a></li>
+							</ul></li>
+						<li class="active"><a href="#">Menu 4 <span
+								class="sr-only">(current)</span></a></li>
+						<li><a href="https://www.jquery-az.com/php-tutorials/">Menu
+								5</a></li>
+						<li><a href="https://www.jquery-az.com/jquery-tips/">Menu
+								6</a></li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+
+
+						<!-- Second dropdown code -->
+						<li><a href="#"><i class="fa fa-bell"></i></a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Hi, User <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="https://www.jquery-az.com/about-us/">Logout</a></li>
+								<li><a href="https://www.jquery-az.com/contact/">Ganti
+										Password</a></li>
+							</ul></li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+	</header>
+</body>
+</head>

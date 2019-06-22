@@ -18,17 +18,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.xsis.batch197.model.KotaModel;
 import com.xsis.batch197.model.ProvinsiModel;
-import com.xsis.batch197.repository.KotaRepo;
-import com.xsis.batch197.repository.ProvinsiRepo;
+import com.xsis.batch197.repositroy.KotaRepo;
+import com.xsis.batch197.repositroy.ProvinsiRepo;
 
 @Controller
 @RequestMapping(value = "/kota")
 public class KotaController {
-
 	private static final Logger logger = LoggerFactory.getLogger(KotaController.class);
 
 	@Autowired
-	private KotaRepo kotaRepo;
+	private KotaRepo repo;
 
 	@Autowired
 	private ProvinsiRepo repoProp;
@@ -36,8 +35,8 @@ public class KotaController {
 	// method untuk generate kode kota automatis
 	private String getKode() {
 		String result = "";
-		if (kotaRepo.getMaxKode() != null) {
-			result = kotaRepo.getMaxKode().split("-")[1];
+		if (repo.getMaxKode() != null) {
+			result = repo.getMaxKode().split("-")[1];
 			result = "KT-" + String.format("%04d", (Integer.parseInt(result) + 1));
 		} else {
 			result = "KT-0001";
@@ -58,51 +57,40 @@ public class KotaController {
 	public ModelAndView list() {
 		// buat object view
 		ModelAndView view = new ModelAndView("kota/list");
-		// load data provinsi via repository, lalu disimpan ke dalam list
-		List<KotaModel> list = kotaRepo.findAll();
-		// lempar data ke view, list object baru, datanya itu listkota
+		// load data kota via repo, disimpan kedalam list
+		List<KotaModel> list = repo.findAll();
+		// lemparkan data ke view, list object baru, datanya listkota
 		view.addObject("list", list);
 		return view;
 	}
-	
-	@GetMapping(value = "/list/{key}")
-	public ModelAndView list(@PathVariable("key") String key) {
-		// buat object view
-		ModelAndView view = new ModelAndView("kota/list");
-		// load data provinsi via repository, lalu disimpan ke dalam list
-		List<KotaModel> listKota = kotaRepo.search(key);
-		// lemparkan data ke view, list object baru, datanya listProvinsi
-		view.addObject("list", listKota);
-		return view;
-	}
 
-	// #2. Membuat form Add Kota
+	// #2. Membuat Form Add kota
 	@GetMapping(value = "/add")
 	public ModelAndView create() {
 		// buat object view
 		ModelAndView view = new ModelAndView("kota/create");
-		// buat object kota yang akan dikirim ke view
+		// membuat object kota yg akan dikirim ke view
 		// object kota adalah new object dari KotaModel
 		KotaModel kota = new KotaModel();
 		// isi kdKota dengan method getKode()
 		kota.setKdKota(getKode());
 		view.addObject("kota", kota);
 
-		// mengambil data provinsi yang sudah ada
+		// mengambil data propinsi yang sudah ada
 		List<ProvinsiModel> listProp = repoProp.findAll();
-		// object listProp akan dikirim ke view, agar pilihan ProvinsiId bisa terisi
+		// object listProp akan kita kirim ke view, agar pilihan provinsiId bisa terisi
 		// datanya
 		view.addObject("listProp", listProp);
 		return view;
 	}
 
-	// #3. menangkap data dari form Add Kota
+	// #3. Menangkap data dari form
 	@PostMapping(value = "/save")
 	public ModelAndView save(@Valid @ModelAttribute("kota") KotaModel kota, BindingResult result) {
 		if (result.hasErrors()) {
 			logger.info("save kota error");
 		} else {
-			kotaRepo.save(kota);
+			repo.save(kota);
 		}
 
 		ModelAndView view = new ModelAndView("kota/create");
@@ -110,13 +98,13 @@ public class KotaController {
 		return view;
 	}
 
-	// #2. Membuat form Edit Kota
+	// #2. Membuat Form Add kota
 	@GetMapping(value = "/edit/{id}")
 	public ModelAndView edit(@PathVariable("id") Long id) {
 		// buat object view
 		ModelAndView view = new ModelAndView("kota/update");
 		// mengambil data dahulu dari database via repository
-		KotaModel kota = kotaRepo.findById(id).orElse(new KotaModel());
+		KotaModel kota = repo.findById(id).orElse(new KotaModel());
 		// membuat object kota yg akan dikirim ke view
 		// object kota adalah new object dari KotaModel
 		view.addObject("kota", kota);
@@ -129,13 +117,13 @@ public class KotaController {
 		return view;
 	}
 
-	// #3. menangkap data dari form Edit Kota
+	// #3. Menangkap data dari form
 	@PostMapping(value = "/update")
 	public ModelAndView update(@Valid @ModelAttribute("kota") KotaModel kota, BindingResult result) {
 		if (result.hasErrors()) {
 			logger.info("save kota error");
 		} else {
-			kotaRepo.save(kota);
+			repo.save(kota);
 		}
 
 		ModelAndView view = new ModelAndView("kota/update");
@@ -143,39 +131,40 @@ public class KotaController {
 		return view;
 	}
 
-	// #4. Membuat form Detail kota
+	// #4. Membuat Form Add kota
 	@GetMapping(value = "/detail/{id}")
 	public ModelAndView detail(@PathVariable("id") Long id) {
 		// buat object view
 		ModelAndView view = new ModelAndView("kota/detail");
 		// mengambil data dahulu dari database via repository
-		KotaModel kota = kotaRepo.findById(id).orElse(new KotaModel());
+		KotaModel kota = repo.findById(id).orElse(new KotaModel());
 		// membuat object kota yg akan dikirim ke view
 		// object kota adalah new object dari KotaModel
 		view.addObject("kota", kota);
 		return view;
 	}
 
-	// #4. Membuat form Delete Kota
+	// #4. Membuat Form Add kota
 	@GetMapping(value = "/delete/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id) {
 		// buat object view
 		ModelAndView view = new ModelAndView("kota/delete");
 		// mengambil data dahulu dari database via repository
-		KotaModel kota = kotaRepo.findById(id).orElse(new KotaModel());
+		KotaModel kota = repo.findById(id).orElse(new KotaModel());
 		// membuat object kota yg akan dikirim ke view
 		// object kota adalah new object dari KotaModel
 		view.addObject("kota", kota);
 		return view;
 	}
 
-	// #3. Menangkap data dari form Delete Kota
+	// #3. Menangkap data dari form
 	@PostMapping(value = "/remove")
 	public ModelAndView remove(@ModelAttribute("kota") KotaModel kota) {
 		// remove data dari database via repo
-		kotaRepo.delete(kota);
+		repo.delete(kota);
 		// membuat object view
-		ModelAndView view = new ModelAndView("kota/create");
+		ModelAndView view = new ModelAndView("kota/delete");
+		view.addObject("kota", kota);
 		// redirect to index
 		return view;
 	}

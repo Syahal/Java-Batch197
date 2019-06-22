@@ -24,12 +24,12 @@
 		<!-- sidebar -->
 		<aside th:replace="fragments/sidebar :: sidebar"></aside>
 
-		<!-- content wrapper. contains page content -->
-		<div class=content-wrapper>
-			<!-- content header (page header) -->
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Provinsi<small>Index</small>
+					Provinsi <small>Index</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -46,8 +46,8 @@
 								<h3 class="box-title">List Provinsi</h3>
 								<div class="box-tools">
 									<div class="input-group input-group-sm" style="width: 250px;">
-										<input type="text" id="txt-search" class="form-control pull-right"
-											placeholder="search" />
+										<input type="text" id="txt-search"
+											class="form-control pull-right" placeholder="search" />
 										<div class="input-group-btn">
 											<button type="button" class="btn btn-warning btn-sm"
 												id="btn-search">
@@ -66,9 +66,9 @@
 									<thead>
 										<tr>
 											<th>Id</th>
-											<th>Kode Provinsi</th>
-											<th>Nama Provinsi</th>
-											<th>Action</th>
+											<th>Kode</th>
+											<th>Nama Propinsi</th>
+											<th>#</th>
 										</tr>
 									</thead>
 									<tbody id="list-data">
@@ -95,12 +95,11 @@
 	<!-- script javascript -->
 	<div th:replace="fragments/footer :: scripts"></div>
 
-	<!-- script untuk CRUD page provinsi -->
+	<!-- script untuk CRUD page provinsi  -->
 	<script>
-		//1. baca fungsi javascript
-		//fungsi javascript
+		//#1. Read function javascript
 		function loadData() {
-			//fungsi jquery
+			// function JQuery
 			$.ajax({
 				url : '/provinsi/list',
 				type : 'get',
@@ -110,86 +109,63 @@
 				}
 			});
 		}
-		//2. fungsi jquery, pertama kali di halaman load
+
 		$(function() {
 			loadData();
 		});
 
-		//3. event btn-add => cari button dengan id btn-add
-		// event ketika di clik, untuk menampilkan form baru
 		$("#btn-add").click(function() {
-			//request halaman dengan ajax
 			$.ajax({
-				url : '/provinsi/add', // lihat di ProvinsiController, cari getMapping(value="/add")
+				url : '/provinsi/add',
 				type : 'get',
 				dataType : 'html',
 				success : function(result) {
 					$("#modal-input").find(".modal-dialog").html(result);
-					// menampilkan modal dengan id => modal-input
 					$("#modal-input").modal('show');
 				}
 			});
 		});
 
-		//4. event di modal input, kemudian cari elemen dengan id => form-provinsi
-		// eventnya itu adalah ketika formnya di submit
 		$("#modal-input").on("submit", "#form-provinsi", function() {
-			// inisialisasi variable dataForm, diambil dari serialize method
 			var dataForm = $(this).serialize()
-			// inisialisasi variable urlForm, diambil dari attribute action form
-			// sehingga utk CREATE, UPDATE, DELETE menggunakan data ini, dan tidak perlu buat event submit berkali-kali
 			var urlForm = $(this).attr('action');
-			// submit data dengan AJAX
 			$.ajax({
-				url : urlForm, // url diisi dengan variable urlForm
+				url : urlForm,
 				type : 'post',
-				data : dataForm, // data diisi dengan variable dataForm
+				data : dataForm,
 				dataType : 'html',
 				done : function() {
 					$("#modal-input").find(".modal-dialog").html("");
 				},
 				success : function(result) {
-					// masukkan dulu resultnya ke modal
 					$("#modal-input").find(".modal-dialog").html(result)
-					// check jumlah element yang memiliki class => has-error
 					var check = $("#modal-input").find(".has-error").length;
-					// jika tidak ada error
 					if (check == 0) {
-						// menyembunyikan modal dengan id => modal-input
 						$("#modal-input").modal('hide');
-						// tampilkan data dengan memanggil method loadData
 						loadData();
 					}
 				},
 			});
-			// untuk mencegah supaya tidak submit automatis,
-			// sehingga form akan diam tidak melakukan action apapun
 			return false;
 		});
 
-		// 5. menampilkan detail data
 		$("#list-data").on("click", ".btn-detail", function() {
 			var id = $(this).val();
-			// request halaman dengan AJAX
 			$.ajax({
-				url : '/provinsi/detail/' + id, // lihat di ProvinsiController, cari GetMapping(value="/detail/{id}"")
+				url : '/provinsi/detail/' + id,
 				type : 'get',
 				dataType : 'html',
 				success : function(result) {
 					$("#modal-input").find(".modal-dialog").html(result);
-					//menampilkan modal dengan id => modal-input
 					$("#modal-input").modal('show');
 				}
 			});
 		});
 
-		// 6. menampilkan form edit data, menampilkan form beserta datanya
-		// saat form di submit, proses edit tsb akan di proses dengan nomor 5
 		$("#list-data").on("click", ".btn-edit", function() {
 			var id = $(this).val();
-			// request halaman dengan ajax
 			$.ajax({
-				url : '/provinsi/edit/' + id, // lihat di ProvinsiController, cari GetMapping(value="/edit/{id}")
+				url : '/provinsi/edit/' + id,
 				type : 'get',
 				dataType : 'html',
 				success : function(result) {
@@ -200,35 +176,34 @@
 			});
 		});
 
-		// 7. menampilkan form delete data, menampilkan form beserta datanya
-		// saat form di submit, proses edit tsb akan di proses dengan nomor 5
+		//#7. menampilkan form delete data, hanya menampilan form dengan datanya
+		// saat submit form, akan diproses dengan nomor #5
 		$("#list-data").on("click", ".btn-delete", function() {
 			var id = $(this).val();
-			// request halaman dengan Ajax
+			// request halaman dengan ajax
 			$.ajax({
-				url : '/provinsi/delete/' + id, // lihat di ProvinsiController, cari GetMapping(value="/edit/{id}")
+				url : '/provinsi/delete/' + id, // lihat di ProvinsiController, cari GetMapping(value="/delete/{id}")
 				type : 'get',
 				dataType : 'html',
 				success : function(result) {
 					$("#modal-input").find(".modal-dialog").html(result);
-					// menampilkan modal dengan id => modal-input
+					// menampilkan modal dengan id modal-input
 					$("#modal-input").modal('show');
 				}
 			});
 		});
 		
-		//#8. method untuk search
 		$("#btn-search").click(function(){
 			var key = $("#txt-search").val();
 			if(key==""){
-				alert("Masukkan Text Search");
-			} else {
-				//request halaman dengan Ajax
+				alert("masukan text search");
+			}else {
+				// request halaman dengan ajax
 				$.ajax({
 					url:'/provinsi/list/'+key, // lihat di ProvinsiController, cari GetMapping(value="/list/{key}")
 					type:'get',
 					dataType:'html',
-					success: function(result){
+					success : function(result){
 						$("#list-data").html(result);
 					}
 				});

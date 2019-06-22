@@ -3,21 +3,20 @@
 <head th:replace="fragments/header :: header_app">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-	<style>
-.example-modal .modal {
-	position: relative;
-	top: auto;
-	bottom: auto;
-	right: auto;
-	left: auto;
-	display: block;
-	z-index: 1;
-}
-
-.example-modal .modal {
-	background: transparent !important;
-}
-</style>
+ <style>
+   .example-modal .modal {
+     position: relative;
+     top: auto;
+     bottom: auto;
+     right: auto;
+     left: auto;
+     display: block;
+     z-index: 1;
+   }
+   .example-modal .modal {
+     background: transparent !important;
+   }
+ </style>
 	<div class="wrapper">
 		<!-- header -->
 		<header th:replace="fragments/header :: header"></header>
@@ -29,11 +28,11 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Kota <small>Index</small>
+					kota <small>Index</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li class="active">Kota</li>
+					<li class="active">Propinsi</li>
 				</ol>
 			</section>
 			<!-- Main content -->
@@ -43,19 +42,16 @@
 						<!-- content mulai -->
 						<div class="box box-info box-solid">
 							<div class="box-header with-border">
-								<h3 class="box-title">List Kota</h3>
+								<h3 class="box-title">List kota</h3>
 								<div class="box-tools">
-									<div class="input-group input-group-sm" style="width: 250px;">
-										<input type="text" id="txt-search" class="form-control pull-right"
-											placeholder="search" />
-										<div class="input-group-btn">
-											<button type="button" class="btn btn-warning btn-sm"
-												id="btn-search">
+									<div class="input-group input-group-sm" style="width:250px;">
+										<input type="text" class="form-control pull-right" placeholder="search"/>
+										<div class="input-group-btn">											
+											<button type="button" class="btn btn-warning btn-sm" id="btn-search">
 												<i class="fa fa-search"></i>
 											</button>
-											<button type="button" class="btn btn-primary btn-sm"
-												id="btn-add">
-												<i class="fa fa-plus"></i> Add
+											<button type="button" class="btn btn-primary btn-sm" id="btn-add">
+												<i class="fa fa-plus"></i> Add 
 											</button>
 										</div>
 									</div>
@@ -66,14 +62,14 @@
 									<thead>
 										<tr>
 											<th>Id</th>
-											<th>Kode Kota</th>
+											<th>Kode</th>
 											<th>Nama Kota</th>
-											<th>Nama Provinsi</th>
-											<th>Action</th>
+											<th>Propinsi</th>
+											<th>#</th>
 										</tr>
 									</thead>
 									<tbody id="list-data">
-
+										
 									</tbody>
 								</table>
 							</div>
@@ -86,154 +82,140 @@
 		<!-- footer -->
 		<div th:replace="fragments/footer :: footer"></div>
 	</div>
-
+	
 	<!-- modal mulai -->
 	<div class="modal fade" id="modal-input">
-		<div class="modal-dialog"></div>
+		<div class="modal-dialog">
+		
+		</div>
 	</div>
 	<!-- modal selesai -->
-
+	
 	<!-- script javascript -->
 	<div th:replace="fragments/footer :: scripts"></div>
-
+	
 	<!-- script untuk CRUD page kota  -->
 	<script>
-		//#1. Fungsi Javasript
-		function loadData() {
+		//#1. Read function javascript
+		function loadData(){
 			// function JQuery
 			$.ajax({
-				url : '/kota/list',
-				type : 'get',
-				dataType : 'html',
-				success : function(result) {
+				url:'/kota/list',
+				type:'get',
+				dataType:'html',
+				success : function(result){
 					$("#list-data").html(result);
 				}
 			});
 		}
-
-		//#2. Fungsi JQuery, pertama kali halamannya di load
-		$(function() {
+		
+		//#2. funciton JQuery, pertama kali halaman di load
+		$(function(){
 			loadData();
 		});
-
-		//#3. Event btn-add ==> cari button dengan id btn-add
-		// Event berlangsung bila button tsb di click, utk menampilkan form baru
-		$("#btn-add").click(function() {
-			// Request halaman dengan Ajax
-			$.ajax({
-				url : '/kota/add', // lihat di kotaController, cari GetMapping(value="/add")
-				type : 'get',
-				dataType : 'html',
-				success : function(result) {
-					$("#modal-input").find(".modal-dialog").html(result);
-					// menampilkan modal dengan id modal-input
-					$("#modal-input").modal('show');
-				}
-			});
-		});
-
-		//#4. Event ketika di modal input, kemudian cari element dengan id form-kota
-		// Eventnya itu terjadi ketika form di submit
-		$("#modal-input").on("submit", "#form-kota", function() {
-			// inisialisasi variable dataForm, diambil dari serialize method
-			var dataForm = $(this).serialize()
-			// inisialisasi variable urlForm, diambil dari attribute action form
-			// sehingga utk CREATE, UPDATE, DELETE menggunakan data ini, dan tidak perlu buat event submit berkali-kali
-			var urlForm = $(this).attr('action');
-			//submit data dengan Ajax
-			$.ajax({
-				url : urlForm, // url di isi dengan variable urlForm
-				type : 'post',
-				data : dataForm, // data di isi dengan variable dataForm
-				dataType : 'html',
-				done : function() {
-					$("#modal-input").find(".modal-dialog").html("");
-				},
-				success : function(result) {
-					// Masukkan dulu resultnya ke modal
-					$("#modal-input").find(".modal-dialog").html(result)
-					// Cek jumlah elemen yang memiliki class has-error
-					var check = $("#modal-input").find(".has-error").length;
-					// Jika tidak ada error
-					if (check == 0) {
-						// Sembunyikan modal dengan id modal-input
-						$("#modal-input").modal('hide');
-						// Tampilkan data dengan memanggil method loadData
-						loadData();
-					}
-				},
-			});
-			// Mencegah supaya tidak submit secara otomatis
-			return false;
-		});
-
-		//#5. menampilkan detail data
-		$("#list-data").on("click", ".btn-detail", function() {
-			var id = $(this).val();
+		
+		//#3. event btn-add => cari button dengan id btn-add
+		// event ketika di click, untuk menampilkan form baru
+		$("#btn-add").click(function(){
 			// request halaman dengan ajax
 			$.ajax({
-				url : '/kota/detail/' + id, // lihat di kotaController, cari GetMapping(value="/detail/{id}")
-				type : 'get',
-				dataType : 'html',
-				success : function(result) {
+				url:'/kota/add', // lihat di kotaController, cari GetMapping(value="/add")
+				type:'get',
+				dataType:'html',
+				success : function(result){
 					$("#modal-input").find(".modal-dialog").html(result);
 					// menampilkan modal dengan id modal-input
-					$("#modal-input").modal('show');
-				}
-			});
-		});
-
-		//#6. menampilkan form edit data, hanya menampilkan form dengan datanya
-		//saat submit form, akan di proses dengan nomor #5
-		$("#list-data").on("click", ".btn-edit", function() {
-			var id = $(this).val();
-			// request halaman dengan ajax
-			$.ajax({
-				url : '/kota/edit/' + id, // lihat di kotaController, cari GetMapping(value="/edit/{id}")
-				type : 'get',
-				dataType : 'html',
-				success : function(result) {
-					$("#modal-input").find(".modal-dialog").html(result);
-					// menampilkan modal dengan id modal-input
-					$("#modal-input").modal('show');
-				}
-			});
-		});
-
-		// 7. menampilkan form delete data, menampilkan form beserta datanya
-		// saat form di submit, proses edit tsb akan di proses dengan nomor 5
-		$("#list-data").on("click", ".btn-delete", function() {
-			var id = $(this).val();
-			// request halaman dengan Ajax
-			$.ajax({
-				url : '/kota/delete/' + id, // lihat di ProvinsiController, cari GetMapping(value="/delete/{id}")
-				type : 'get',
-				dataType : 'html',
-				success : function(result) {
-					$("#modal-input").find(".modal-dialog").html(result);
-					// menampilkan modal dengan id => modal-input
 					$("#modal-input").modal('show');
 				}
 			});
 		});
 		
-		//#8. method untuk search
-		$("#btn-search").click(function(){
-			var key = $("#txt-search").val();
-			if(key==""){
-				alert("Masukkan Text Search");
-			} else {
-				//request halaman dengan Ajax
-				$.ajax({
-					url:'/kota/list/'+key, // lihat di KotaController, cari GetMapping(value="/list/{key}")
-					type:'get',
-					dataType:'html',
-					success: function(result){
-						$("#list-data").html(result);
+		//#4 event di modal input, kemudian cari element denga id form-propinsi
+		// event ny adalah ketika form di submit
+		$("#modal-input").on("submit","#form-kota", function(){
+			// inisialisasi variable dataForm, diambil dari serialize method
+			var dataForm = $(this).serialize()
+			// inisialisasi variable urlForm diambil dari atribute action dari form
+			// sehingga untuk CREATE, UPDATE, DELETE menggunakan data ini
+			// dan tidak perlu membuat event submit berkali-kali
+			var urlForm = $(this).attr('action');
+			// submit data dengan AJAX
+			$.ajax({
+				url:urlForm, // url di isi dengan variable urlForm
+				type:'post',
+				data:dataForm, // data di isi dengan variable dataForm
+				dataType:'html',
+				done:function(){
+					$("#modal-input").find(".modal-dialog").html("");
+				},
+				success : function(result){
+					// masukan dulu result ke modal
+					$("#modal-input").find(".modal-dialog").html(result)
+					// check jumlah element yang memiliki class has-error
+					var check = $("#modal-input").find(".has-error").length;
+					// jika tidak ada error
+					if(check==0){
+						// menyembunyikan modal dengan id modal-input
+						$("#modal-input").modal('hide');
+						// tampilkan data dengan memanggil method loadData
+						loadData();
 					}
-				});
-			}
+				},
+			});
+			// mencegah submit automatis, sehingga form akan diam tidak melakukan action
+			return false;
 		});
+		
+		//#5. menampilkan detail data
+		$("#list-data").on("click",".btn-detail", function(){
+			var id = $(this).val();
+			// request halaman dengan ajax
+			$.ajax({
+				url:'/kota/detail/'+ id, // lihat di kotaController, cari GetMapping(value="/detail/{id}")
+				type:'get',
+				dataType:'html',
+				success : function(result){
+					$("#modal-input").find(".modal-dialog").html(result);
+					// menampilkan modal dengan id modal-input
+					$("#modal-input").modal('show');
+				}
+			});
+		});
+		
+		//#6. menampilkan form edit data, hanya menampilan form dengan datanya
+		// saat submit form, akan diproses dengan nomor #5
+		$("#list-data").on("click",".btn-edit", function(){
+			var id = $(this).val();
+			// request halaman dengan ajax
+			$.ajax({
+				url:'/kota/edit/'+ id, // lihat di kotaController, cari GetMapping(value="/edit/{id}")
+				type:'get',
+				dataType:'html',
+				success : function(result){
+					$("#modal-input").find(".modal-dialog").html(result);
+					// menampilkan modal dengan id modal-input
+					$("#modal-input").modal('show');
+				}
+			});
+		});
+		
+		//#7. menampilkan form delete data, hanya menampilan form dengan datanya
+		// saat submit form, akan diproses dengan nomor #5
+		$("#list-data").on("click",".btn-delete", function(){
+			var id = $(this).val();
+			// request halaman dengan ajax
+			$.ajax({
+				url:'/kota/delete/'+ id, // lihat di kotaController, cari GetMapping(value="/delete/{id}")
+				type:'get',
+				dataType:'html',
+				success : function(result){
+					$("#modal-input").find(".modal-dialog").html(result);
+					// menampilkan modal dengan id modal-input
+					$("#modal-input").modal('show');
+				}
+			});
+		});
+		
 	</script>
 </body>
 </html>

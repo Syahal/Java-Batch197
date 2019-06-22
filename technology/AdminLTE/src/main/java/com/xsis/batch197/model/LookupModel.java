@@ -1,14 +1,10 @@
 package com.xsis.batch197.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotBlank;
@@ -45,9 +41,6 @@ public class LookupModel {
 	@Column(name="posisi", nullable=false)
 	@NotNull
 	private Integer posisi;
-	
-	@OneToMany(mappedBy = "lookup")
-	private List<BiodataModel> listBiodata = new ArrayList<BiodataModel>();
 
 	public Long getId() {
 		return id;
@@ -88,13 +81,4 @@ public class LookupModel {
 	public void setPosisi(Integer posisi) {
 		this.posisi = posisi;
 	}
-
-	public List<BiodataModel> getListBiodata() {
-		return listBiodata;
-	}
-
-	public void setListBiodata(List<BiodataModel> listBiodata) {
-		this.listBiodata = listBiodata;
-	}
-	
 }

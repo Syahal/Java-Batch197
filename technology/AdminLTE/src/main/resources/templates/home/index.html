@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header_app">
-</head>
+<head th:replace="fragments/header :: header_app"> </head>
 <body class="hold-transition skin-blue sidebar-mini">
-	<div id="wrapper">
+	<div class="wrapper">
+		<!-- header -->
 		<header th:replace="fragments/header :: header"></header>
+		<!-- sidebar -->
 		<aside th:replace="fragments/sidebar :: sidebar"></aside>
-
+	
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -20,14 +21,19 @@
 				</ol>
 			</section>
 			<!-- Main content -->
-			<section class="content">
-				<div class="row">
-					<div class="col-md-12"></div>
-				</div>
-			</section>
+	    	<section class="content">
+	    		<div class="row">
+	    			<div class="col-md-12">
+	    			
+	    			</div>
+	    		</div>
+	    	</section>
 		</div>
-
+		<!-- footer -->
 		<div th:replace="fragments/footer :: footer"></div>
 	</div>
+	<!-- script javascript -->
+	<div th:replace="fragments/footer :: scripts"></div>
 </body>
 </html>
+

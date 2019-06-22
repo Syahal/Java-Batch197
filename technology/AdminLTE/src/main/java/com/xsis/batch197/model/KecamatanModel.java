@@ -19,39 +19,36 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tbl_kecamatan")
+@Table(name="tbl_kecamatan")
 public class KecamatanModel {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "kecamatan_idx")
-	@TableGenerator(name = "kecamatan_idx", table = "tbl_index", pkColumnName = "index_id", valueColumnName = "index_value", initialValue = 0, allocationSize = 1)
-	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="kecamatan_idx")
+	@TableGenerator(name="kecamatan_idx", table="tbl_index", pkColumnName="index_id", valueColumnName="index_value", initialValue=0, allocationSize=1)
+	@Column(name="id")
 	private Long id;
-
-	@NotNull
-	@NotEmpty
-	@NotBlank
-	@Column(name = "kd_kecamatan", nullable = false, length = 10)
-	private String kdKecamatan;
-
-	@NotNull
-	@NotEmpty
-	@NotBlank
-	@Column(name = "nm_kecamatan", nullable = false, length = 120)
-	private String nmKecamatan;
-
-	@NotNull
-	@Column(name = "kota_id", nullable = false)
-	private Long kotaId;
-
-	@ManyToOne
-	@JoinColumn(name = "kota_id", foreignKey = @ForeignKey(name = "fk_kec_kota"), updatable = false, insertable = false)
-	private KotaModel kota;
-
-	@OneToMany(mappedBy = "kecamatan")
-	private List<KelurahanModel> listKelurahan = new ArrayList<KelurahanModel>();
 	
-	@OneToMany(mappedBy = "kecamatan")
-	private List<BiodataModel> listBiodata = new ArrayList<BiodataModel>();
+	@NotNull
+	@NotEmpty
+	@NotBlank
+	@Column(name="kd_kecamatan", nullable=false, length=10)
+	private String kdKecamatan;
+	
+	@NotNull
+	@NotEmpty
+	@NotBlank
+	@Column(name="nm_kecamatan", nullable=false, length=120)
+	private String nmKecamatan;
+	
+	@NotNull
+	@Column(name="kota_id", nullable=false)
+	private Long kotaId;
+	
+	@ManyToOne
+	@JoinColumn(name="kota_id", foreignKey=@ForeignKey(name="fk_kec_kota"), updatable=false, insertable=false)
+	private KotaModel kota;
+	
+	@OneToMany(mappedBy="kecamatan")
+	private List<KelurahanModel> listKelurahan = new ArrayList<KelurahanModel>();
 
 	public Long getId() {
 		return id;
@@ -100,13 +97,4 @@ public class KecamatanModel {
 	public void setListKelurahan(List<KelurahanModel> listKelurahan) {
 		this.listKelurahan = listKelurahan;
 	}
-
-	public List<BiodataModel> getListBiodata() {
-		return listBiodata;
-	}
-
-	public void setListBiodata(List<BiodataModel> listBiodata) {
-		this.listBiodata = listBiodata;
-	}
-	
 }

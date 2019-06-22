@@ -19,9 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.xsis.batch197.model.KecamatanModel;
 import com.xsis.batch197.model.KotaModel;
 import com.xsis.batch197.model.ProvinsiModel;
-import com.xsis.batch197.repository.KecamatanRepo;
-import com.xsis.batch197.repository.KotaRepo;
-import com.xsis.batch197.repository.ProvinsiRepo;
+import com.xsis.batch197.repositroy.KecamatanRepo;
+import com.xsis.batch197.repositroy.KotaRepo;
 
 @Controller
 @RequestMapping(value = "/kecamatan")
@@ -29,7 +28,7 @@ public class KecamatanController {
 	private static final Logger logger = LoggerFactory.getLogger(KecamatanController.class);
 
 	@Autowired
-	private KecamatanRepo kecamatanRepo;
+	private KecamatanRepo repo;
 
 	@Autowired
 	private KotaRepo repoKota;
@@ -37,8 +36,8 @@ public class KecamatanController {
 	// method untuk generate kode kecamatan automatis
 	private String getKode() {
 		String result = "";
-		if (kecamatanRepo.getMaxKode() != null) {
-			result = kecamatanRepo.getMaxKode().split("-")[1];
+		if (repo.getMaxKode() != null) {
+			result = repo.getMaxKode().split("-")[1];
 			result = "KEC-" + String.format("%05d", (Integer.parseInt(result) + 1));
 		} else {
 			result = "KEC-00001";
@@ -60,21 +59,9 @@ public class KecamatanController {
 		// buat object view
 		ModelAndView view = new ModelAndView("kecamatan/list");
 		// load data kecamatan via repo, disimpan kedalam list
-		List<KecamatanModel> listkecamatan = kecamatanRepo.findAll();
+		List<KecamatanModel> listkecamatan = repo.findAll();
 		// lemparkan data ke view, list object baru, datanya listkecamatan
 		view.addObject("list", listkecamatan);
-		return view;
-	}
-	
-	//method untuk search menu
-	@GetMapping(value = "/list/{key}")
-	public ModelAndView list(@PathVariable("key") String key) {
-		// buat object view
-		ModelAndView view = new ModelAndView("kecamatan/list");
-		// load data provinsi via repository, lalu disimpan ke dalam list
-		List<KecamatanModel> listKecamatan = kecamatanRepo.search(key);
-		// lemparkan data ke view, list object baru, datanya listKecamatan
-		view.addObject("list", listKecamatan);
 		return view;
 	}
 
@@ -90,9 +77,9 @@ public class KecamatanController {
 		kecamatan.setKdKecamatan(getKode());
 		view.addObject("kecamatan", kecamatan);
 
-		// mengambil data kota yang sudah ada berdasarkan provinsi yang sudah dipilih
+		// mengambil data propinsi yang sudah ada
 		List<KotaModel> listKota = repoKota.findAll();
-		// object listKota akan kita kirim ke view, agar pilihan kotaId bisa terisi
+		// object listProp akan kita kirim ke view, agar pilihan provinsiId bisa terisi
 		// datanya
 		view.addObject("listKota", listKota);
 		return view;
@@ -104,7 +91,7 @@ public class KecamatanController {
 		if (result.hasErrors()) {
 			logger.info("save kecamatan error");
 		} else {
-			kecamatanRepo.save(kecamatan);
+			repo.save(kecamatan);
 		}
 
 		ModelAndView view = new ModelAndView("kecamatan/create");
@@ -118,14 +105,14 @@ public class KecamatanController {
 		// buat object view
 		ModelAndView view = new ModelAndView("kecamatan/update");
 		// mengambil data dahulu dari database via repository
-		KecamatanModel kecamatan = kecamatanRepo.findById(id).orElse(new KecamatanModel());
+		KecamatanModel kecamatan = repo.findById(id).orElse(new KecamatanModel());
 		// membuat object kecamatan yg akan dikirim ke view
 		// object kecamatan adalah new object dari KecamatanModel
 		view.addObject("kecamatan", kecamatan);
 
-		// mengambil data kota yang sudah ada
+		// mengambil data propinsi yang sudah ada
 		List<KotaModel> listKota = repoKota.findAll();
-		// object listProp akan kita kirim ke view, agar pilihan kotaId bisa terisi
+		// object listProp akan kita kirim ke view, agar pilihan provinsiId bisa terisi
 		// datanya
 		view.addObject("listKota", listKota);
 		return view;
@@ -137,7 +124,7 @@ public class KecamatanController {
 		if (result.hasErrors()) {
 			logger.info("save kecamatan error");
 		} else {
-			kecamatanRepo.save(kecamatan);
+			repo.save(kecamatan);
 		}
 
 		ModelAndView view = new ModelAndView("kecamatan/update");
@@ -151,7 +138,7 @@ public class KecamatanController {
 		// buat object view
 		ModelAndView view = new ModelAndView("kecamatan/detail");
 		// mengambil data dahulu dari database via repository
-		KecamatanModel kecamatan = kecamatanRepo.findById(id).orElse(new KecamatanModel());
+		KecamatanModel kecamatan = repo.findById(id).orElse(new KecamatanModel());
 		// membuat object kecamatan yg akan dikirim ke view
 		// object kecamatan adalah new object dari KecamatanModel
 		view.addObject("kecamatan", kecamatan);
@@ -164,7 +151,7 @@ public class KecamatanController {
 		// buat object view
 		ModelAndView view = new ModelAndView("kecamatan/delete");
 		// mengambil data dahulu dari database via repository
-		KecamatanModel kecamatan = kecamatanRepo.findById(id).orElse(new KecamatanModel());
+		KecamatanModel kecamatan = repo.findById(id).orElse(new KecamatanModel());
 		// membuat object kecamatan yg akan dikirim ke view
 		// object kecamatan adalah new object dari KecamatanModel
 		view.addObject("kecamatan", kecamatan);
@@ -175,7 +162,7 @@ public class KecamatanController {
 	@PostMapping(value = "/remove")
 	public ModelAndView remove(@ModelAttribute("kecamatan") KecamatanModel kecamatan) {
 		// remove data dari database via repo
-		kecamatanRepo.delete(kecamatan);
+		repo.delete(kecamatan);
 		// membuat object view
 		ModelAndView view = new ModelAndView("kecamatan/delete");
 		view.addObject("kecamatan", kecamatan);
