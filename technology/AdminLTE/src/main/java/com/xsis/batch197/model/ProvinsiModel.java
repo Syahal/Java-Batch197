@@ -16,28 +16,28 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="tbl_provinsi")
+@Table(name = "tbl_provinsi")
 public class ProvinsiModel {
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE, generator="provinsi_idx")
-	@TableGenerator(name="provinsi_idx", table="tbl_index", pkColumnName="index_id", valueColumnName="index_value", initialValue=0, allocationSize=1)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "provinsi_idx")
+	@TableGenerator(name = "provinsi_idx", table = "tbl_index", pkColumnName = "index_id", valueColumnName = "index_value", initialValue = 0, allocationSize = 1)
+	@Column(name = "id")
 	private Long id;
-	
+
 	@NotNull
 	@NotBlank
 	@NotEmpty
-	@Column(name="kd_provinsi", nullable=false, length=10)
+	@Column(name = "kd_provinsi", nullable = false, length = 10)
 	private String kdProvinsi;
-	
+
 	@NotNull
 	@NotBlank
 	@NotEmpty
-	@Column(name="nm_provinsi", nullable=false, length=120)
+	@Column(name = "nm_provinsi", nullable = false, length = 120)
 	private String nmProvinsi;
-	
-	@OneToMany(mappedBy="provinsi")
-	private List<KotaModel> listKota = new ArrayList<KotaModel>();
+
+	@OneToMany(mappedBy = "provinsi")
+	private List<KotaModel> listKota= new ArrayList<KotaModel>();
 
 	public Long getId() {
 		return id;

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header_app"> 
+</head>
+<body>
+	<!-- Header -->
+	<header th:replace="fragments/header :: header"></header>
+	<!-- /Header -->
+
+	<!-- Content Wrapper -->
+	<div class="wrapper">
+		<!-- Pembungkus Konten -->
+		<div class="container">
+			<div class=row>
+				<!-- Baris -->
+				<section class="content-header">
+					<!-- Judul tulisan XSIS 2.0 -->
+					<h1>XSIS 2.0</h1>
+				</section>
+				<!-- Sidebar Menu -->
+				<div class="col-md-2">
+					<aside th:replace="fragments/sidebar :: sidebar"></aside>
+					<!-- Memanggil menu sidebar dengan fragment -->
+				</div>
+				<!-- /Sidebar Menu -->
+				<!-- Content -->
+				<div class="col-md-10">
+					<div class="content">
+						<div class="module">
+							<div class="module-head">
+								<h3 style="font-weight: bold; color: #006;">Selamat Datang
+									. . .</h3>
+							</div>
+							<!-- Isi/content data dari database -->
+							<div class="module-body">
+								<!-- START List Data Table -->
+								<div class="row-fluid" id="list-data"></div>
+								<!-- id="list-data" untuk memanggil list data dengan menggunakan ajax -->
+								<!-- END List Data -->
+							</div>
+							<!-- End Module Body -->
+						</div>
+						<!-- End Module -->
+					</div>
+					<!-- End Content -->
+				</div>
+				<!-- End Span -->
+			</div>
+			<!-- End Row -->
+		</div>
+		<!-- End Container -->
+	</div>
+	<!-- End Content Wrapper -->
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer"></div>
+	<!-- /Footer -->
+</body>
+</html>

@@ -1,0 +1,11 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<aside th:fragment="sidebar" class="main-sidebar" style="margin-top:65px;">
+		<section class="sidebar" style="margin: -47px -25px 0 15px;">
+			<ul th:each="item:${list}" class="sidebar-menu" data-widget="tree" style="background-color: white; border-style: solid; border-width: 1px; border-color: #000066;">
+				<li><a th:href="${item.menuUrl}" th:text="${item.title}"></a></li>
+			</ul>
+		</section>
+		<!--/.sidebar-->
+	</aside>
+</body>

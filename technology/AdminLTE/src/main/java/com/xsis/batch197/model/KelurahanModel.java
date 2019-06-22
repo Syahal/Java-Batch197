@@ -15,32 +15,48 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="tbl_kelurahan")
+@Table(name = "tbl_kelurahan")
 public class KelurahanModel {
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE, generator="kelurahan_idx")
-	@TableGenerator(name="kelurahan_idx", table="tbl_index", pkColumnName="index_id", valueColumnName="index_value", initialValue=0, allocationSize=1)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "kelurahan_idx")
+	@TableGenerator(name = "kelurahan_idx", table = "tbl_index", pkColumnName = "index_id", valueColumnName = "index_value", initialValue = 0, allocationSize = 1)
+	@Column(name = "id")
 	private Long id;
-	
+
 	@NotNull
 	@NotEmpty
 	@NotBlank
-	@Column(name="kd_kelurahan", nullable=false, length=10)
+	@Column(name = "kd_kelurahan", nullable = false, length = 10)
 	private String kdKelurahan;
-	
+
 	@NotNull
 	@NotEmpty
 	@NotBlank
-	@Column(name="nm_kelurahan", nullable=false, length=120)
+	@Column(name = "nm_kelurahan", nullable = false, length = 120)
 	private String nmKelurahan;
 	
+//	@NotNull
+//	@Column(name = "provinsi_id", nullable = false)
+//	private Long provinsiId;
+//
+//	@NotNull
+//	@Column(name = "kota_id", nullable = false)
+//	private Long kotaId;
+
 	@NotNull
-	@Column(name="kecamatan_id", nullable=false)
+	@Column(name = "kecamatan_id", nullable = false)
 	private Long kecamatanId;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "provinsi_id", foreignKey = @ForeignKey(name = "fk_kel_prop"), updatable = false, insertable = false)
+//	private ProvinsiModel provinsi;
+//
+//	@ManyToOne
+//	@JoinColumn(name = "kota_id", foreignKey = @ForeignKey(name = "fk_kel_kota"), updatable = false, insertable = false)
+//	private KotaModel kota;
+
 	@ManyToOne
-	@JoinColumn(name="kecamatan_id", foreignKey=@ForeignKey(name="fk_kel_kec"), updatable=false, insertable=false)
+	@JoinColumn(name = "kecamatan_id", foreignKey = @ForeignKey(name = "fk_kel_kec"), updatable = false, insertable = false)
 	private KecamatanModel kecamatan;
 
 	public Long getId() {
@@ -66,6 +82,38 @@ public class KelurahanModel {
 	public void setNmKelurahan(String nmKelurahan) {
 		this.nmKelurahan = nmKelurahan;
 	}
+
+//	public Long getProvinsiId() {
+//		return provinsiId;
+//	}
+//
+//	public void setProvinsiId(Long provinsiId) {
+//		this.provinsiId = provinsiId;
+//	}
+//
+//	public Long getKotaId() {
+//		return kotaId;
+//	}
+//
+//	public void setKotaId(Long kotaId) {
+//		this.kotaId = kotaId;
+//	}
+//
+//	public ProvinsiModel getProvinsi() {
+//		return provinsi;
+//	}
+//
+//	public void setProvinsi(ProvinsiModel provinsi) {
+//		this.provinsi = provinsi;
+//	}
+//
+//	public KotaModel getKota() {
+//		return kota;
+//	}
+//
+//	public void setKota(KotaModel kota) {
+//		this.kota = kota;
+//	}
 
 	public Long getKecamatanId() {
 		return kecamatanId;

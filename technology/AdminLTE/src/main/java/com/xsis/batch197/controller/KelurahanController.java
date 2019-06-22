@@ -18,9 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.xsis.batch197.model.KecamatanModel;
 import com.xsis.batch197.model.KelurahanModel;
+import com.xsis.batch197.model.KotaModel;
 import com.xsis.batch197.model.ProvinsiModel;
-import com.xsis.batch197.repositroy.KecamatanRepo;
-import com.xsis.batch197.repositroy.KelurahanRepo;
+import com.xsis.batch197.repository.KecamatanRepo;
+import com.xsis.batch197.repository.KelurahanRepo;
+import com.xsis.batch197.repository.KotaRepo;
+import com.xsis.batch197.repository.ProvinsiRepo;
 
 @Controller
 @RequestMapping(value = "/kelurahan")
@@ -28,19 +31,25 @@ public class KelurahanController {
 	private static final Logger logger = LoggerFactory.getLogger(KelurahanController.class);
 
 	@Autowired
-	private KelurahanRepo repo;
+	private KelurahanRepo kelurahanRepo;
 
 	@Autowired
 	private KecamatanRepo repoKec;
 
+//	@Autowired
+//	private KotaRepo repoKota;
+//
+//	@Autowired
+//	private ProvinsiRepo repoProp;
+
 	// method untuk generate kode kelurahan automatis
 	private String getKode() {
 		String result = "";
-		if (repo.getMaxKode() != null) {
-			result = repo.getMaxKode().split("-")[1];
-			result = "PR-" + String.format("%03d", (Integer.parseInt(result) + 1));
+		if (kelurahanRepo.getMaxKode() != null) {
+			result = kelurahanRepo.getMaxKode().split("-")[1];
+			result = "KEL-" + String.format("%06d", (Integer.parseInt(result) + 1));
 		} else {
-			result = "PR-001";
+			result = "KEL-000001";
 		}
 		return result;
 	}
@@ -59,7 +68,7 @@ public class KelurahanController {
 		// buat object view
 		ModelAndView view = new ModelAndView("kelurahan/list");
 		// load data kelurahan via repo, disimpan kedalam list
-		List<KelurahanModel> listkelurahan = repo.findAll();
+		List<KelurahanModel> listkelurahan = kelurahanRepo.findAll();
 		// lemparkan data ke view, list object baru, datanya listkelurahan
 		view.addObject("list", listkelurahan);
 		return view;
@@ -77,6 +86,18 @@ public class KelurahanController {
 		kelurahan.setKdKelurahan(getKode());
 		view.addObject("kelurahan", kelurahan);
 
+//		// mengambil data provinsi yang sudah ada
+//		List<ProvinsiModel> listProp = repoProp.findAll();
+//		// object listProp akan dikirim ke view, agar pilihan ProvinsiId bisa terisi
+//		// datanya
+//		view.addObject("listProp", listProp);
+//
+//		// mengambil data kota yang sudah ada berdasarkan provinsi yang sudah dipilih
+//		List<KotaModel> listKota = repoKota.findAll();
+//		// object listKota akan kita kirim ke view, agar pilihan kotaId bisa terisi
+//		// datanya
+//		view.addObject("listKota", listKota);
+
 		// mengambil data kecamatan yang sudah ada
 		List<KecamatanModel> listKec = repoKec.findAll();
 		// object listKec akan kita kirim ke view, agar pilihan kecamatanId bisa terisi
@@ -91,7 +112,7 @@ public class KelurahanController {
 		if (result.hasErrors()) {
 			logger.info("save kelurahan error");
 		} else {
-			repo.save(kelurahan);
+			kelurahanRepo.save(kelurahan);
 		}
 
 		ModelAndView view = new ModelAndView("kelurahan/create");
@@ -105,10 +126,22 @@ public class KelurahanController {
 		// buat object view
 		ModelAndView view = new ModelAndView("kelurahan/update");
 		// mengambil data dahulu dari database via repository
-		KelurahanModel kelurahan = repo.findById(id).orElse(new KelurahanModel());
+		KelurahanModel kelurahan = kelurahanRepo.findById(id).orElse(new KelurahanModel());
 		// membuat object kelurahan yg akan dikirim ke view
 		// object kelurahan adalah new object dari KelurahanModel
 		view.addObject("kelurahan", kelurahan);
+
+//		// mengambil data propinsi yang sudah ada
+//		List<ProvinsiModel> listProp = repoProp.findAll();
+//		// object listProp akan kita kirim ke view, agar pilihan provinsiId bisa terisi
+//		// datanya
+//		view.addObject("listProp", listProp);
+//
+//		// mengambil data kota yang sudah ada
+//		List<KotaModel> listKota = repoKota.findAll();
+//		// object listProp akan kita kirim ke view, agar pilihan kotaId bisa terisi
+//		// datanya
+//		view.addObject("listKota", listKota);
 
 		// mengambil data kecamatan yang sudah ada
 		List<KecamatanModel> listKec = repoKec.findAll();
@@ -124,7 +157,7 @@ public class KelurahanController {
 		if (result.hasErrors()) {
 			logger.info("save kelurahan error");
 		} else {
-			repo.save(kelurahan);
+			kelurahanRepo.save(kelurahan);
 		}
 
 		ModelAndView view = new ModelAndView("kelurahan/update");
@@ -138,7 +171,7 @@ public class KelurahanController {
 		// buat object view
 		ModelAndView view = new ModelAndView("kelurahan/detail");
 		// mengambil data dahulu dari database via repository
-		KelurahanModel kelurahan = repo.findById(id).orElse(new KelurahanModel());
+		KelurahanModel kelurahan = kelurahanRepo.findById(id).orElse(new KelurahanModel());
 		// membuat object kelurahan yg akan dikirim ke view
 		// object kelurahan adalah new object dari KelurahanModel
 		view.addObject("kelurahan", kelurahan);
@@ -151,7 +184,7 @@ public class KelurahanController {
 		// buat object view
 		ModelAndView view = new ModelAndView("kelurahan/delete");
 		// mengambil data dahulu dari database via repository
-		KelurahanModel kelurahan = repo.findById(id).orElse(new KelurahanModel());
+		KelurahanModel kelurahan = kelurahanRepo.findById(id).orElse(new KelurahanModel());
 		// membuat object kelurahan yg akan dikirim ke view
 		// object kelurahan adalah new object dari KelurahanModel
 		view.addObject("kelurahan", kelurahan);
@@ -162,7 +195,7 @@ public class KelurahanController {
 	@PostMapping(value = "/remove")
 	public ModelAndView remove(@ModelAttribute("kelurahan") KelurahanModel kelurahan) {
 		// remove data dari database via repo
-		repo.delete(kelurahan);
+		kelurahanRepo.delete(kelurahan);
 		// membuat object view
 		ModelAndView view = new ModelAndView("kelurahan/delete");
 		view.addObject("kelurahan", kelurahan);

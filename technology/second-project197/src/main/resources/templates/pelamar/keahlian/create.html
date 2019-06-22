@@ -1,0 +1,67 @@
+<!-- content mulai -->
+<form class="" th:action="@{~/keahlian/save}" th:object="${keahlian}"
+	method="post" id="form-keahlian">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="modal-title">Masukan Keahlian</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="control-label">Nama Keahlian *</label> <input
+							type="text" class="form-control" name="" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div th:class="${#fields.hasErrors('skillLevelId')} ? 'form-group has-error':'form-group'">
+						<label class="control-label">Level Keahlian *</label>
+						<select th:field="*{skillLevelId}" class="form-control select2" style="width: 100%;">
+							<option th:each="skill: ${listSkill}" th:value="${skill.id}" th:text="${skill.skillName}"></option>
+						</select>
+						<span th:if="${#fields.hasErrors('skillLevelId')}" class="help-block" th:errors="*{skillLevelId}"></span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label for="comment">Catatan:</label>
+						<textarea class="form-control select2" rows="5" id="comment"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary pull-right">
+				<i class="fa fa-save"></i> Save
+			</button>
+			<button data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+		</div>
+	</div>
+</form>
+<script>
+	$(document).ready(function() {
+		var minOffset = 0, maxOffset = 20; // Change to whatever you want
+		var thisYear = (new Date()).getFullYear();
+		var select = $('<select class="form-control">');
+		for (var i = minOffset; i <= maxOffset; i++) {
+			var year = thisYear - i;
+			$('<option>', {
+				value : year,
+				text : year
+			}).appendTo(select);
+		}
+		$("#marriedYear").append(select);
+
+		$("#marriedDiv input").datepicker({
+
+		});
+	})
+</script>
+<!-- content selesai -->

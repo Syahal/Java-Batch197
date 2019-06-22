@@ -22,7 +22,7 @@ public class BiodataModel {
 	@GeneratedValue(strategy=GenerationType.TABLE, generator="biodata_idx")
 	@TableGenerator(name="biodata_idx", table="tbl_index", pkColumnName="index_id", valueColumnName="index_value", initialValue=0, allocationSize=1)
 	@Column(name="id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="nik", length=20, nullable=false)
 	@NotNull
@@ -36,16 +36,16 @@ public class BiodataModel {
 	private String alamat;
 	
 	@Column(name="kelurahan_id", length=100, nullable=false)
-	private Long kelurahanId;
+	private Integer kelurahanId;
 	
 	@Column(name="kecamatan_id", length=100, nullable=false)
-	private Long kecamatanId;
+	private Integer kecamatanId;
 	
 	@Column(name="kota_id", length=100, nullable=false)
-	private Long kotaId;
+	private Integer kotaId;
 	
 	@Column(name="provinsi_id", length=100, nullable=false)
-	private Long provinsiId;
+	private Integer provinsiId;
 	
 	@Column(name="jk", length=10, nullable=false)
 	private String jk;
@@ -70,11 +70,11 @@ public class BiodataModel {
 	@Column(name="warga_negara", length=5, nullable=false)
 	private String wargaNegara;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -102,35 +102,35 @@ public class BiodataModel {
 		this.alamat = alamat;
 	}
 
-	public Long getKelurahanId() {
+	public Integer getKelurahanId() {
 		return kelurahanId;
 	}
 
-	public void setKelurahanId(Long kelurahanId) {
+	public void setKelurahanId(Integer kelurahanId) {
 		this.kelurahanId = kelurahanId;
 	}
 
-	public Long getKecamatanId() {
+	public Integer getKecamatanId() {
 		return kecamatanId;
 	}
 
-	public void setKecamatanId(Long kecamatanId) {
+	public void setKecamatanId(Integer kecamatanId) {
 		this.kecamatanId = kecamatanId;
 	}
 
-	public Long getKotaId() {
+	public Integer getKotaId() {
 		return kotaId;
 	}
 
-	public void setKotaId(Long kotaId) {
+	public void setKotaId(Integer kotaId) {
 		this.kotaId = kotaId;
 	}
 
-	public Long getProvinsiId() {
+	public Integer getProvinsiId() {
 		return provinsiId;
 	}
 
-	public void setProvinsiId(Long provinsiId) {
+	public void setProvinsiId(Integer provinsiId) {
 		this.provinsiId = provinsiId;
 	}
 
@@ -189,6 +189,4 @@ public class BiodataModel {
 	public void setWargaNegara(String wargaNegara) {
 		this.wargaNegara = wargaNegara;
 	}
-	
-	
 }

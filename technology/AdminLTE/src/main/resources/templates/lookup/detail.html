@@ -1,6 +1,6 @@
-
 <!-- content mulai -->
-<form th:action="@{~/lookup/update}" th:object="${lookup}" method="post">
+<form th:action="@{~/lookup/update}" th:object="${lookup}" method="post"
+	id="form-lookup">
 	<div class="box box-success box-solid">
 		<div class="box-header">
 			<h3 class="box-title">Update Lookup</h3>
@@ -36,7 +36,7 @@
 			</table>
 		</div>
 		<div class="box-footer">
-			<a th:href="@{~/lookup/index}" class="btn btn-default pull-right">Cancel</a>
+			<button data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
 		</div>
 	</div>
 </form>

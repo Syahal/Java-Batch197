@@ -19,35 +19,43 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="tbl_kecamatan")
+@Table(name = "tbl_kecamatan")
 public class KecamatanModel {
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE, generator="kecamatan_idx")
-	@TableGenerator(name="kecamatan_idx", table="tbl_index", pkColumnName="index_id", valueColumnName="index_value", initialValue=0, allocationSize=1)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "kecamatan_idx")
+	@TableGenerator(name = "kecamatan_idx", table = "tbl_index", pkColumnName = "index_id", valueColumnName = "index_value", initialValue = 0, allocationSize = 1)
+	@Column(name = "id")
 	private Long id;
-	
+
 	@NotNull
 	@NotEmpty
 	@NotBlank
-	@Column(name="kd_kecamatan", nullable=false, length=10)
+	@Column(name = "kd_kecamatan", nullable = false, length = 10)
 	private String kdKecamatan;
-	
+
 	@NotNull
 	@NotEmpty
 	@NotBlank
-	@Column(name="nm_kecamatan", nullable=false, length=120)
+	@Column(name = "nm_kecamatan", nullable = false, length = 120)
 	private String nmKecamatan;
-	
+
 	@NotNull
-	@Column(name="kota_id", nullable=false)
+	@Column(name = "provinsi_id", nullable = false)
+	private Long provinsiId;
+
+	@NotNull
+	@Column(name = "kota_id", nullable = false)
 	private Long kotaId;
-	
+
 	@ManyToOne
-	@JoinColumn(name="kota_id", foreignKey=@ForeignKey(name="fk_kec_kota"), updatable=false, insertable=false)
+	@JoinColumn(name = "provinsi_id", foreignKey = @ForeignKey(name = "fk_kec_prop"), updatable = false, insertable = false)
+	private ProvinsiModel provinsi;
+
+	@ManyToOne
+	@JoinColumn(name = "kota_id", foreignKey = @ForeignKey(name = "fk_kec_kota"), updatable = false, insertable = false)
 	private KotaModel kota;
-	
-	@OneToMany(mappedBy="kecamatan")
+
+	@OneToMany(mappedBy = "kecamatan")
 	private List<KelurahanModel> listKelurahan = new ArrayList<KelurahanModel>();
 
 	public Long getId() {
@@ -72,6 +80,22 @@ public class KecamatanModel {
 
 	public void setNmKecamatan(String nmKecamatan) {
 		this.nmKecamatan = nmKecamatan;
+	}
+
+	public Long getProvinsiId() {
+		return provinsiId;
+	}
+
+	public void setProvinsiId(Long provinsiId) {
+		this.provinsiId = provinsiId;
+	}
+
+	public ProvinsiModel getProvinsi() {
+		return provinsi;
+	}
+
+	public void setProvinsi(ProvinsiModel provinsi) {
+		this.provinsi = provinsi;
 	}
 
 	public Long getKotaId() {

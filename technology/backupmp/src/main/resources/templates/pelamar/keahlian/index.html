@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header_app">
+</head>
+<body>
+	<!-- Header -->
+	<header th:replace="fragments/header :: header"></header>
+	<!-- /Header -->
+
+	<!-- Content Wrapper -->
+	<div class="wrapper">
+		<div class="container">
+			<div class=row>
+				<!-- Sidebar Menu -->
+				<aside th:replace="fragments/sidebar :: sidebar"></aside>
+				<!-- /Sidebar Menu -->
+				<!-- Content -->
+				<div class="span9">
+					<div class="content">
+						<div class="module">
+							<div class="module-head">
+								<h3>Data Pelamar</h3>
+							</div>
+							<div class="module-body">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Nama Keahlian</th>
+											<th>Level Keahlian</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody id="list-data">
+
+									</tbody>
+								</table>
+								<div class="pagination pagination-right">
+									<button type="button" class="btn btn-outline-secondary">
+										Previous <a href="#" class="previous"></a>
+									</button>
+									<button type="button" class="btn btn-outline-secondary">
+										Next <a href="#" class="next"></a>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Content -->
+			</div>
+		</div>
+	</div>
+	<!-- /Content Wrapper -->
+
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer"></div>
+	<!-- /Footer -->
+</body>
+</html>

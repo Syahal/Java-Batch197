@@ -1,0 +1,15 @@
+<tr th:each="item :${list}">
+	<td th:text="${item.skillName}"></td>
+	<td th:text="${item.skillLevelId}"></td>
+	<td colspan="2">
+		<div class="btn-group pull-right">
+			<button class="btn btn-xs btn-edit btn-warning" th:value="${item.id}">
+				<i class="fa fa-edit"></i>
+			</button>
+			<button class="btn btn-xs btn-delete btn-danger"
+				th:value="${item.id}">
+				<i class="fa fa-trash"></i>
+			</button>
+		</div>
+	</td>
+</tr>

@@ -19,33 +19,34 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="tbl_kota")
+@Table(name = "tbl_kota")
 public class KotaModel {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE, generator="kota_idx")
-	@TableGenerator(name="kota_idx", table="tbl_index", pkColumnName="index_id", valueColumnName="index_value", initialValue=0, allocationSize=1)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "kota_idx")
+	@TableGenerator(name = "kota_idx", table = "tbl_index", pkColumnName = "index_id", valueColumnName = "index_value", initialValue = 0, allocationSize = 1)
+	@Column(name = "id")
 	private Long id;
-	
+
 	@NotBlank
 	@NotEmpty
-	@Column(name="kd_kota", nullable=false, length=10)
+	@Column(name = "kd_kota", nullable = false, length = 10)
 	private String kdKota;
-	
+
 	@NotBlank
 	@NotEmpty
-	@Column(name="nm_kota", nullable=false, length=120)
+	@Column(name = "nm_kota", nullable = false, length = 100)
 	private String nmKota;
-	
+
 	@NotNull
-	@Column(name="provinsi_id", nullable=false)
+	@Column(name = "provinsi_id", nullable = false)
 	private Long provinsiId;
-	
+
 	@ManyToOne
-	@JoinColumn(name="provinsi_id", foreignKey=@ForeignKey(name="fk_kota_prop"), updatable=false, insertable=false)
+	@JoinColumn(name = "provinsi_id", foreignKey = @ForeignKey(name = "fk_kota_prop"), updatable = false, insertable = false)
 	private ProvinsiModel provinsi;
-	
-	@OneToMany(mappedBy="kota")
+
+	@OneToMany(mappedBy = "kota")
 	private List<KecamatanModel> listKecamatan = new ArrayList<KecamatanModel>();
 
 	public Long getId() {
@@ -88,11 +89,12 @@ public class KotaModel {
 		this.provinsi = provinsi;
 	}
 
-	public List<KecamatanModel> getListKecamatan() {
-		return listKecamatan;
-	}
+//	public List<KecamatanModel> getListKecamatan() {
+//		return listKecamatan;
+//	}
+//
+//	public void setListKecamatan(List<KecamatanModel> listKecamatan) {
+//		this.listKecamatan = listKecamatan;
+//	}
 
-	public void setListKecamatan(List<KecamatanModel> listKecamatan) {
-		this.listKecamatan = listKecamatan;
-	}	
 }

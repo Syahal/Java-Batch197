@@ -1,0 +1,13 @@
+<tr th:each="item :${list}">
+	<td th:text="${item.skillName}"></td>
+	<td th:text="${item.skillLevelId}"></td>
+	<td class="col-md-1">
+		<button class="btn btn-outline-secondary dropdown-toggle"
+			type="button" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="false">Dropdown</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item-edit" th:value="${item.id}">Ubah</a>
+			<a class="dropdown-item-delete" th:value="${item.id}">Hapus</a>
+		</div>
+	</td>
+</tr>

@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header_app">
+</head>
+<body>
+	<!-- Header -->
+	<header th:replace="fragments/header :: header"></header>
+	<!-- /Header -->
+
+	<!-- Content Wrapper -->
+	<div class="wrapper">
+		<div class="container">
+			<div class=row>
+				<section class="content-header">
+					<h1>XSIS 2.0</h1>
+				</section>
+				<!-- Sidebar Menu -->
+				<div class="col-md-2">
+					<aside th:replace="fragments/sidebar :: sidebar"></aside>
+				</div>
+				<!-- /Sidebar Menu -->
+				<!-- Content -->
+				<div class="col-md-10">
+					<div class="content">
+						<div class="module">
+							<div class="module-head">
+								<h3 style="font-weight: bold; color: #006;">Data Keahlian</h3>
+							</div>
+							<div class="module-option clearfix">
+								<form>
+									<div class="input-append input-group input-group-sm pull-Left">
+										<input type="text" id="txt-search" class="form-control"
+											placeholder="Cari Nama Pelamar..."
+											style="width: 500px; border-color: #000066;">
+										<button type="submit" class="btn btn-sm" id="btn-search"
+											style="margin-right: 5px; background-color: #000066; color: white; font-weight: bold;"
+											title="Cari Pelamar">Cari</button>
+										<button type="reset" class="btn btn-sm" id="btn-reset"
+											style="background-color: #000066; color: white; font-weight: bold;"
+											title="Reset"
+											onclick="document.getElementById('txt-search').value = ''">Reset</button>
+									</div>
+								</form>
+								<div class="btn-group pull-right">
+									<button type="button" class="btn btn-sm" title="Ordererd">
+										<i class="fa fa-sort"></i>
+									</button>
+									<button type="button" class="btn btn-sm" title="Row per Page">
+										<i class="fa fa-list-ul"></i>
+									</button>
+									<button type="button" class="btn btn-sm" id="btn-add" title="tambah">
+										<i class="fa fa-plus-circle"></i>
+									</button>
+								</div>
+							</div>
+							<div class="module-body">
+								<!-- START List Data Table -->
+								<div class="row-fluid">
+									<div class="media user">
+										<div class="media-body">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Nama Keahlian</th>
+														<th>Level Keahlian</th>
+														<th>#</th>
+													</tr>
+												</thead>
+												<tbody id="list-data">
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<!-- END List Data -->
+
+								<div class="pagination pagination-right pull-right">
+									<button type="button" class="btn btn-outline-secondary">
+										Previous <a href="#" class="previous"></a>
+									</button>
+									<button type="button" class="btn btn-outline-secondary">
+										Next <a href="#" class="next"></a>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Content -->
+			</div>
+		</div>
+	</div>
+	<!-- /Content Wrapper -->
+
+	<!-- modal mulai -->
+	<div class="modal fade" id="modal-input">
+		<div class="modal-dialog"></div>
+	</div>
+	<!-- modal selesai -->
+
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer"></div>
+	<!-- /Footer -->
+
+	<!-- script untuk CRUD page provinsi  -->
+	<script>
+		//1. baca fungsi javascript
+		//fungsi javascript
+		function loadData() {
+			//fungsi jquery
+			$.ajax({
+				url : '/keahlian/list',
+				type : 'get',
+				dataType : 'html',
+				success : function(result) {
+					$("#list-data").html(result);
+				}
+			});
+		}
+		//2. fungsi jquery, pertama kali di halaman load
+		$(function() {
+			loadData();
+		});
+
+		//3. event btn-add => cari button dengan id btn-add
+		// event ketika di clik, untuk menampilkan form baru
+		$("#btn-add").click(function() {
+			//request halaman dengan ajax
+			$.ajax({
+				url : '/keahlian/add', // lihat di XKeahlianController, cari getMapping(value="/add")
+				type : 'get',
+				dataType : 'html',
+				success : function(result) {
+					$("#modal-input").find(".modal-dialog").html(result);
+					// menampilkan modal dengan id => modal-input
+					$("#modal-input").modal('show');
+				}
+			});
+		});
+
+		//4. event di modal input, kemudian cari elemen dengan id => form-provinsi
+		// eventnya itu adalah ketika formnya di submit
+		$("#modal-input").on("submit", "#form-keahlian", function() {
+			// inisialisasi variable dataForm, diambil dari serialize method
+			var dataForm = $(this).serialize()
+			// inisialisasi variable urlForm, diambil dari attribute action form
+			// sehingga utk CREATE, UPDATE, DELETE menggunakan data ini, dan tidak perlu buat event submit berkali-kali
+			var urlForm = $(this).attr('action');
+			// submit data dengan AJAX
+			$.ajax({
+				url : urlForm, // url diisi dengan variable urlForm
+				type : 'post',
+				data : dataForm, // data diisi dengan variable dataForm
+				dataType : 'html',
+				done : function() {
+					$("#modal-input").find(".modal-dialog").html("");
+				},
+				success : function(result) {
+					// masukkan dulu resultnya ke modal
+					$("#modal-input").find(".modal-dialog").html(result)
+					// check jumlah element yang memiliki class => has-error
+					var check = $("#modal-input").find(".has-error").length;
+					// jika tidak ada error
+					if (check == 0) {
+						// menyembunyikan modal dengan id => modal-input
+						$("#modal-input").modal('hide');
+						// tampilkan data dengan memanggil method loadData
+						loadData();
+					}
+				},
+			});
+			// untuk mencegah supaya tidak submit automatis,
+			// sehingga form akan diam tidak melakukan action apapun
+			return false;
+		});
+	</script>
+</body>
+</html>

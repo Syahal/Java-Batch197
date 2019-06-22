@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<aside th:fragment="sidebar" class="main-sidebar">
+		<section class="sidebar" style="margin: -47px -25px 0 15px;">
+			<ul class="sidebar-menu" data-widget="tree" style="background-color: white; border-style: solid; border-width: 1px; border-color: #000066;">
+				<li><a th:href="@{~/home/index}"><i class="fa fa-circle"></i>Beranda</a></li>
+				<li><a th:href="@{~/pelamar/index}"><i class="fa fa-circle"></i>Pelamar</a></li>
+				<li><a th:href="@{~/prosespelamar/index}"><i class="fa fa-circle"></i>Proses Pelamar</a></li>
+				<li class="treeview"><a href="#"><i class="fa fa-circle"></i> <i class="fa fa-angle-down pull-right"></i>Penjadwalan</a>
+					<ul class="treeview-menu">
+						<li><a href="#"></i>SubMenu 1</a></li>
+						<li><a href="#"></i>SubMenu 2</a></li>
+						<li><a href="#"></i>SubMenu 3</a></li>
+					</ul>
+				</li>
+				<li class="treeview"><a href="#"> <i class="fa fa-circle"></i> <i class="fa fa-angle-down pull-right"></i>Test</a>
+					<ul class="treeview-menu">
+						<li class="active"><a href="#"></i>SubMenu 1</a></li>
+						<li><a href="#"></i>SubMenu 2</a></li>
+						<li><a href="#"></i>SubMenu 3</a></li>
+					</ul>
+				</li>
+				<li class="treeview"><a href="#"> <i class="fa fa-circle"></i> <i class="fa fa-angle-down pull-right"></i>Bootcamp</a>
+					<ul class="treeview-menu">
+						<li class="active"><a href="#"></i>SubMenu 1</a></li>
+						<li><a href="#"></i>SubMenu 2</a></li>
+						<li><a href="#"></i>SubMenu 3</a></li>
+					</ul>
+				</li>
+				<li class="treeview"><a href="#"> <i class="fa fa-circle"></i> <i class="fa fa-angle-down pull-right"></i>Laporan</a>
+					<ul class="treeview-menu">
+						<li class="active"><a href="#"></i>SubMenu 1</a></li>
+						<li><a href="#"></i>SubMenu 2</a></li>
+						<li><a href="#"></i>SubMenu 3</a></li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+		<!--/.sidebar-->
+	</aside>
+</body>

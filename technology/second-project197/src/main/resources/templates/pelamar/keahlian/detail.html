@@ -1,0 +1,82 @@
+<!-- content mulai -->
+<form th:object="${keahlian}" method="post" id="form-keahlian">
+	<div class="box box-success box-solid">
+		<div class="box-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="box-title">Detail Pelamar</h4>
+		</div>
+		<div class="box-body form-horizontal">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-3">
+						<aside th:replace="fragments/sidebarmodal :: sidebarmodal"></aside>
+					</div>
+					<div class="col-md-9">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Nama Keahlian</th>
+									<th>Level Keahlian</th>
+									<th>#</th>
+								</tr>
+							</thead>
+							<tbody id="list-keahlian">
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="box-footer">
+			<button data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+		</div>
+	</div>
+</form>
+<!-- content selesai -->
+
+<!-- CRUD Keahlian -->
+<script>
+	//#1. Membaca fungsi javaScript
+	function loadData() {
+		// membuat an async AJAX request pada url pelamar/list, dengan tujuan menerima data yg berupa html, dan data yang diterima ketika sukses adalah data dengan id list-data
+		$.ajax({
+			url : '/keahlian/list',
+			type : 'get',
+			dataType : 'html',
+			success : function(result) {
+				$("#list-keahlian").html(result);
+			}
+		});
+	}
+
+	//#2. funciton JQuery, pertama kali halaman di load
+	// membuat fungsi untuk menjalankan method loadData
+	$(function() {
+		loadData();
+	});
+
+	//#5. menampilkan detail data
+	$("#list-keahlian").on("click", ".btn-detail", function() {
+		// Metode val () digunakan untuk Return/Set atribut nilai dari elemen yang dipilih.
+		//Saat digunakan untuk mengembalikan nilai:
+		//Metode ini mengembalikan nilai atribut nilai dari elemen yang cocok PERTAMA.
+		//Saat digunakan untuk menetapkan nilai:
+		//Metode ini menetapkan nilai atribut nilai untuk SEMUA elemen yang cocok.
+		var id = $(this).val();
+		// request halaman dengan ajax
+		$.ajax({
+			url : '/keahlianr/detail/' + id, // lihat di KeahlianController, cari GetMapping(value="/detail/{id}")
+			type : 'get',
+			dataType : 'html',
+			success : function(result) {
+				$("#modal-input").find(".modal-dialog").html(result);
+				// menampilkan modal dengan id modal-input
+				$("#modal-input").modal('show');
+			}
+		});
+	});
+</script>
